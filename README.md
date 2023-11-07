@@ -90,4 +90,8 @@ POST /api/v1/posts/2/comments/
     "created": "2023-11-24T14:15:22Z",
     "post": 2
 } 
+<<<<<<< HEAD
 ```
+=======
+```
+>>>>>>> 9dac7853f44cfe69d4b0183c367afefd219a1031
