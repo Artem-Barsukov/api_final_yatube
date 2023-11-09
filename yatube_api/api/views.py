@@ -45,16 +45,15 @@ class PostViewSet(viewsets.ModelViewSet, BaseViewSet):
 class CommentViewSet(viewsets.ModelViewSet, BaseViewSet):
     serializer_class = CommentSerializer
 
-    def get_post_id(self):
-        return self.kwargs.get('post_id')
+    def get_post(self):
+        return get_object_or_404(Post, pk=self.kwargs.get('post_id'))
 
     def get_queryset(self):
-        post = get_object_or_404(Post, pk=self.get_post_id())
-        return post.comments.select_related('author')
+        return self.get_post().comments.select_related('author')
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user,
-                        post=get_object_or_404(Post, pk=self.get_post_id()))
+                        post=self.get_post())
 
 
 class FollowViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
